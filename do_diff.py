@@ -3,7 +3,6 @@ from PIL import ImageChops
 from PIL import ImageStat
 import traceback
 import logging
-import json
 import cv2
 
 def init_logger():
@@ -52,10 +51,13 @@ def draw_diff_images(in_diff_file, path_one, path_two, output_one, output_two):
 
 def compare_images(path_one, path_two, diff_save_location, output_one, output_two):
     """
+    # 扩充自： https://zhuanlan.zhihu.com/p/64815011
     比较图片，如果有不同则生成展示不同的图片
     @参数一: path_one: 第一张图片的路径
     @参数二: path_two: 第二张图片的路径
     @参数三: diff_save_location: 不同图的保存路径
+    @参数四：基于 path_one 原图画出差异区域的图片保存位置
+    @参数五：基于 path_two 原图画出差异区域的图片保存位置
     """
     logging.info ("[Do diff]Load diff image from:" + path_one + ", " + path_two)
     image_one = Image.open(path_one)
@@ -87,7 +89,7 @@ def compare_images(path_one, path_two, diff_save_location, output_one, output_tw
             "The box argument is either a 2-tuple giving the upper left corner, a 4-tuple defining the left, upper, "
             "right, and lower pixel coordinate, or None (same as (0, 0)). If a 4-tuple is given, the size of the pasted "
             "image must match the size of the region.使用2纬的box避免上述问题")
-        #print("【{0}】{1}".format(e,text))
+        print("【{0}】{1}".format(e,text))
         traceback.print_exc()
 
 def do_main():
